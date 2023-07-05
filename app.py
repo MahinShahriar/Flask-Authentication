@@ -36,6 +36,7 @@ db = SQLAlchemy(app)
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(64), nullable=False)
     email = db.Column(db.String(64), nullable=False, unique=True)
     password = db.Column(db.String(128), nullable=False)
 
@@ -50,11 +51,17 @@ def load_user(user_id):
 
 
 class SignUpForm(FlaskForm):
+  username  = StringField(validators=[
+              DataRequired(),Length(min=2,max=40)],render_kw={'placeholder':'Full Username'})
+  
   email     = EmailField('Email', validators=[
               DataRequired(), Email()],render_kw={'placeholder':'Email'})
   
   password  = PasswordField(validators=[
               DataRequired(),Length(min=4,max=20)],render_kw={'placeholder':'Password'})
+  
+  re_password  = PasswordField(validators=[
+              DataRequired(),Length(min=4,max=20)],render_kw={'placeholder':'Confirm Password'})
   
   submit    = SubmitField('Sign up')
   
@@ -95,10 +102,10 @@ def signin():
 @app.route('/signup', methods=['GET','POST'])
 def sign_up():
   form = SignUpForm()
-  if form.validate_on_submit():
+  if form.validate_on_submit() and (form.password.data == form.re_password.data):
     password = form.password.data
     hash_pass = hash_string(password)
-    new_user = User(email=form.email.data, password=hash_pass)
+    new_user = User(username=form.username.data,email=form.email.data, password=hash_pass)
     db.session.add(new_user)
     db.session.commit()
     return redirect('signin')
@@ -107,7 +114,8 @@ def sign_up():
 @app.route('/dashboard', methods=["GET","POST"])
 @login_required
 def dashboard():
-  return render_template('dashboard.html')
+  user = current_user
+  return render_template('dashboard.html',user=user)
 
 @app.route('/logout')  
 @login_required

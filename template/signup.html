@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Sign UP</title>
-    meta
   </head>
-  <body>
-    <h3>Sign Up</h3>
-    <form action="/signup" method="post">
-      {{ form.hidden_tag()  }}
-      {{ form.email }}
-      {{ form.password }}
-      {{ form.submit }}
+  <body align='center'>
+    <h3>Sign Up Page</h3>
+    <form action="/signup" method="POST">
+      {{ form.hidden_tag() }}
+      <div style="padding: 6px;">{{ form.username }}</div>
+      <div style="padding: 6px;">{{ form.email }}</div>
+      <div style="padding: 6px;">{{ form.password }}</div>
+      <div style="padding: 6px;">{{ form.re_password }}</div>
+      <div style="padding: 6px;"> {{ form.submit }}</div>
     </form>
-    <div>
-      Already have an account ? <button type="button"><a href="/signin"><b>SIGN IN</b></a></button>
+    <div style="padding: 8px;">
+      Already have an account ? <button type="button"><a href="/signin"><strong>SIGN IN</strong></a></button>
     </div>
   </body>
 </html>

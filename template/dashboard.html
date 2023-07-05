@@ -1,12 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Dashboard</title>
-    meta
   </head>
   <body>
-    <h3>Welcome to Dashboard</h3>
+    <p>Hey <b>
+      {% if user.username %}
+        {{ user.username }}
+      {% else %}
+        User
+      {% endif %}
+      </b>,<br>Welcome to Dashboard</p>
     <div>
       <button type="button"><a href="/logout"><b>LOGOUT</b></a></button>
     </div>
