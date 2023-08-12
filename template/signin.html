@@ -9,6 +9,15 @@
   <body align='center'>
     <h3>Sign in Page</h3>
     <form action="/signin" method="POST">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages%}
+      {% for category, message in messages %}
+      <div> <h6>{{message}} <button type="button" class="btn-close">x</button></h6>
+      </div>
+          
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
       {{ form.hidden_tag() }}
       <div style="padding: 6px;">{{ form.email }}</div>
       <div style="padding: 6px;">{{ form.password }}</div>

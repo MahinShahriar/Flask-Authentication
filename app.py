@@ -8,6 +8,7 @@ import json
 
 #from flask_bcrypt import bcrypt   -- Having an error for device limitation 
 #while trying to install bcrypt
+#
 
 # ALTERNATIVE OF bcrypt
 def hash_string(text):
@@ -25,7 +26,7 @@ app = Flask(__name__ , static_folder="static", template_folder='template')
 app.config['SECRET_KEY'] = "XYZ333@mail_net"
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-local_server = True
+local_server = False
 if (local_server):
   app.config['SQLALCHEMY_DATABASE_URI'] = para["local_db_uri"]
 else:
@@ -95,6 +96,10 @@ def signin():
       if user.password== hash_string(form.password.data):
         login_user(user)
         return redirect('/dashboard')
+      else: 
+        messages = flash('Password not mathced ! please try again.')
+    else:
+      messages = flash('Email not found ! please try again.')
   
   return render_template('signin.html', form=form)
 

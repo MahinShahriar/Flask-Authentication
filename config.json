@@ -1,6 +1,6 @@
 {
   "para" : {
           "local_db_uri" : "mysql://root:root@0.0.0.0:3306/Mahin_web",
-          "prod_db_uri"  : ""
-  }
+          "prod_db_uri"  : "mysql://root:root@localhost/Mahin_web"
+            }
 }
